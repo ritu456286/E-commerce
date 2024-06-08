@@ -1,2 +1,2 @@
-# E-commerce
-E-commerce platform built using React. Good project to learn Frontend Tools.
+# e-commerce
+e-commerce platform built using React. Good project to learn Frontend Tools.
