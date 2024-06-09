@@ -1,9 +1,7 @@
 body {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 500;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
 
   padding: 20px 60px;
 }
