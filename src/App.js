@@ -1,13 +1,10 @@
 import './App.css';
-import HomePage from './pages/homepage.component';
+import HomePage from './pages/homepage/homepage.component';
 
 import { Route, Routes } from "react-router-dom";
 
-const HatsPage = () => (
-  <div>
-    <h1>HATS PAGE</h1>
-  </div>
-);
+import ShopPage from './pages/shop/shop.component';
+
 
 function App() {
   return (
@@ -15,7 +12,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<HomePage />}></Route>
-        <Route exact path='/hats' element={<HatsPage />}></Route>
+        <Route path='/shop' element={<ShopPage />}></Route>
       </Routes>
     </div>
   );
