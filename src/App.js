@@ -1,65 +1,52 @@
-import "./App.css";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "./features/userSlice";
+import { auth, createUserProfileDocument, onSnapshot } from "./firebase/firebase.utils";
 import HomePage from "./pages/homepage/homepage.component";
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom"; 
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 
-import { auth, createUserProfileDocument, onSnapshot } from "./firebase/firebase.utils";
+const App = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
-class App extends React.Component {
-
-  constructor(){
-    super();
-
-    this.state = {
-      currentUser: null
-    }
-  }
-
-  unsubscribeFromAuth = null;
-  componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if(userAuth){
+  useEffect(() => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
         const userDocRef = await createUserProfileDocument(userAuth);
-      
+
         onSnapshot(userDocRef, (snapshot) => {
-          this.setState({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data()
-            }
-          })
+          dispatch(setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
+          }));
         });
-        
-      }else{
-        this.setState({currentUser: null});
+      } else {
+        dispatch(setCurrentUser(null));
       }
-
-      // this.setState({currentUser: userAuth});
-
     });
-  }
 
-  componentWillUnmount(){
-    this.unsubscribeFromAuth();
-  }
+    return () => {
+      unsubscribeFromAuth();
+    };
+  }, [dispatch]);
 
-  render() {
-
-  
-    return (
-      <div>
-        <Header currentUser = {this.state.currentUser}/>
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/shop" element={<ShopPage />}></Route>
-          <Route path="/signin" element={<SignInAndSignUp />}></Route>
-        </Routes>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route
+          exact
+          path="/signin"
+          element={currentUser ? <Navigate to="/" /> : <SignInAndSignUp />}
+        />
+      </Routes>
+    </div>
+  );
+};
 
 export default App;
