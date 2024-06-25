@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./features/userSlice";
-import { auth, createUserProfileDocument, onSnapshot } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  onSnapshot,
+} from "./firebase/firebase.utils";
 import HomePage from "./pages/homepage/homepage.component";
-import { Route, Routes, Navigate } from "react-router-dom"; 
+import { Route, Routes, Navigate } from "react-router-dom";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
@@ -18,10 +22,12 @@ const App = () => {
         const userDocRef = await createUserProfileDocument(userAuth);
 
         onSnapshot(userDocRef, (snapshot) => {
-          dispatch(setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data()
-          }));
+          dispatch(
+            setCurrentUser({
+              id: snapshot.id,
+              ...snapshot.data(),
+            })
+          );
         });
       } else {
         dispatch(setCurrentUser(null));
