@@ -7,15 +7,16 @@
     padding: 20px;
     background-color: white;
     border: 1px solid black;
-    top: 80px;
-    right: 0;
+    top: 90px;
+    right: 40px;
     z-index: 5;
 
     .cart-items {
         height: 240px;
         display: flex;
         flex-direction: column;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     button {
@@ -23,3 +24,4 @@
     }
 }
 
+  
