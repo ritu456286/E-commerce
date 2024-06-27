@@ -23,10 +23,34 @@ const cartSlice = createSlice({
             } else {
                 state.cartItems.push({ ...action.payload, quantity: 1 });
             }
+        },
+
+        clearItemFromCart(state, action) {
+            state.cartItems = state.cartItems.filter(
+                cartItem => cartItem.id !== action.payload.id
+            )
+        },
+
+        removeItemFromCart(state, action) {
+            const existingCartItem = state.cartItems.find(
+                cartItem => cartItem.id === action.payload.id
+            );
+
+            if (existingCartItem) {
+                if (existingCartItem.quantity === 1) {
+                    state.cartItems = state.cartItems.filter(
+                        cartItem => cartItem.id !== action.payload.id
+                    );
+                } else {
+                    existingCartItem.quantity -= 1;
+                }
+            }
         }
+
+
     },
 });
 
 
-export const { toggleCartHidden, addItem } = cartSlice.actions;
+export const { toggleCartHidden, addItem, clearItemFromCart, removeItemFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
