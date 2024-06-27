@@ -4,6 +4,12 @@ import { createSelector } from "@reduxjs/toolkit";
 const selectCart = state => state.cart;
 
 //these are output selectors, which are memoized
+
+export const selectCartHidden = createSelector(
+    [selectCart],
+    cart => cart.hidden
+);
+
 export const selectCartItems = createSelector(
     [selectCart],
     (cart) => cart.cartItems
@@ -17,4 +23,13 @@ export const selectCartItemsCount = createSelector(
                 totalQuantity + cartItem.quantity,
             0
         )
+)
+
+export const selectTotalCartPrice = createSelector(
+    [selectCartItems],
+    cartItems => cartItems.reduce(
+        (TotalPrice, cartItem) => 
+            TotalPrice + cartItem.quantity * cartItem.price,
+        0
+    )
 )

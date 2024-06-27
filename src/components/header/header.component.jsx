@@ -6,9 +6,13 @@ import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../features/user/userSelector";
+import { selectCartHidden } from "../../features/cart/cartSelectors";
+
 
 const Header = () => {
-  const currentUser = useSelector((state) => state.user.currentUser)
+  const currentUser = useSelector(selectCurrentUser);
+  const hidden = useSelector(selectCartHidden);
 
   return(
   <div className="header">
@@ -35,7 +39,7 @@ const Header = () => {
       }
       <CartIcon />  
     </div>
-    <CartDropdown />
+    {hidden ? null : <CartDropdown />} 
   </div>
   );
 };

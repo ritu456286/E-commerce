@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import userReducer from './features/userSlice';
+import userReducer from './features/user/userSlice';
 import cartReducer from './features/cart/cartSlice'
 
 const store = configureStore({
