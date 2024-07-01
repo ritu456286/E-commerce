@@ -22,11 +22,18 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const middlewares = (getDefaultMiddleware) => {
+  if(process.env.NODE_ENV === 'development') {
+    return getDefaultMiddleware().concat(logger);
+  }
+  return getDefaultMiddleware();
+}
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: middlewares, 
 });
+
 
 const persistor = persistStore(store);
 
