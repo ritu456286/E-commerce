@@ -41,12 +41,10 @@ const directorySlice = createSlice({
     name: 'directory',
     initialState,
     reducers: {
-    setDirectory(state) {
-      state = state;
-    },
+
   },
 });
 
-export const { setDirectory } = directorySlice.actions;
+// export const { setDirectory } = directorySlice.actions;
 
 export default directorySlice.reducer;

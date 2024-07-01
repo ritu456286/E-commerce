@@ -9,12 +9,10 @@ const shopSlice = createSlice({
     name: 'shop',
     initialState,
     reducers: {
-        setShop(state){
-            state = state;
-        }
+        
     }
 });
 
-export const { setShop } = shopSlice.actions;
+// export const { setShop } = shopSlice.actions;
 export default shopSlice.reducer;
   
