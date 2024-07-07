@@ -6,7 +6,9 @@ import {
   auth,
   createUserProfileDocument,
   onSnapshot,
+ 
 } from "./firebase/firebase.utils";
+
 
 import HomePage from "./pages/homepage/homepage.component";
 import { Route, Routes, Navigate } from "react-router-dom";
@@ -19,6 +21,7 @@ import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 const App = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  
 
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -36,6 +39,8 @@ const App = () => {
       } else {
         dispatch(setCurrentUser(null));
       }
+
+      
     });
 
     return () => {
@@ -49,7 +54,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop/*" element={<ShopPage />} />
-        <Route exact path='/checkout' element={<CheckoutPage/>} />
+        <Route exact path="/checkout" element={<CheckoutPage />} />
         <Route
           exact
           path="/signin"
